@@ -3,6 +3,7 @@ package com.bbrakenhoff.opentrivia.model
 import kotlinx.serialization.*
 import java.util.*
 
+@Serializable
 enum class TriviaQuestionType {
 
     Multiple,
@@ -18,6 +19,7 @@ enum class TriviaQuestionType {
         override fun deserialize(decoder: Decoder): TriviaQuestionType =
             TriviaQuestionType.valueOf(decoder.decodeString().capitalize(Locale.ROOT))
 
+        @ImplicitReflectionSerializer
         override fun serialize(encoder: Encoder, value: TriviaQuestionType) =
             encoder.encode(value.name.toLowerCase(Locale.ROOT))
     }

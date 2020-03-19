@@ -2,6 +2,7 @@ package com.bbrakenhoff.opentrivia.model
 
 import kotlinx.serialization.*
 
+@Serializable
 enum class TriviaResponseCode {
     Success,
     NoResults,
@@ -18,6 +19,7 @@ enum class TriviaResponseCode {
         override fun deserialize(decoder: Decoder): TriviaResponseCode =
             values()[decoder.decodeInt()]
 
+        @ImplicitReflectionSerializer
         override fun serialize(encoder: Encoder, value: TriviaResponseCode) =
             encoder.encode(value.ordinal)
     }

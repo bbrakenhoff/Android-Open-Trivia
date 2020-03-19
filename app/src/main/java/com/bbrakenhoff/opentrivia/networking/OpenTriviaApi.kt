@@ -10,10 +10,10 @@ import retrofit2.http.Query
 interface OpenTriviaApi {
 
     @GET("/api_category.php")
-    fun getCategories(): TriviaCategories
+    suspend fun getCategories(): TriviaCategories
 
     @GET("/api.php")
-    fun getQuestions(
+    suspend fun getQuestions(
         @Query("amount") amount: Int = 15,
         @Query("category") category: Int? = null,
         @Query("difficulty") difficulty: TriviaQuestionDifficulty? = null,
