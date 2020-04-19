@@ -6,6 +6,7 @@ import android.util.Log
 import com.bbrakenhoff.opentrivia.model.TriviaQuestionDifficulty
 import com.bbrakenhoff.opentrivia.model.TriviaQuestionType
 import com.bbrakenhoff.opentrivia.networking.OpenTriviaApi
+import com.bbrakenhoff.opentrivia.ui.ChooseCategoryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,16 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        testButton.setOnClickListener { _ ->
-            CoroutineScope(Dispatchers.IO).launch {
-                val result = triviaApi.getQuestions(
-                    amount = 5,
-                    category = 12,
-                    difficulty = TriviaQuestionDifficulty.Hard,
-                    type = TriviaQuestionType.Boolean
-                )
-                Log.d("MainActivity", "Bijoya - onCreate: $result")
-            }
-        }
+        supportFragmentManager.beginTransaction().replace(R.id
+            .fragmentContainer, ChooseCategoryFragment.newInstance())
     }
 }
