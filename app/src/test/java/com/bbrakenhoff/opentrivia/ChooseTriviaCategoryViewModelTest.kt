@@ -2,7 +2,7 @@ package com.bbrakenhoff.opentrivia
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
-import com.bbrakenhoff.opentrivia.ui.ChooseCategoryViewModel
+import com.bbrakenhoff.opentrivia.ui.ChooseTriviaCategoryViewModel
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
@@ -14,30 +14,30 @@ import org.junit.Rule
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ChooseCategoryViewModelTest {
+class ChooseTriviaCategoryViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var chooseCategoryViewModel: ChooseCategoryViewModel
+    lateinit var chooseTriviaCategoryViewModel: ChooseTriviaCategoryViewModel
 
     @Before
     fun beforeEach() {
-        chooseCategoryViewModel = ChooseCategoryViewModel()
+        chooseTriviaCategoryViewModel = ChooseTriviaCategoryViewModel()
     }
 
     @Test
-    fun loadCategories_updatesCategoriesFromDb_whenCalled() {
-        assertThat(chooseCategoryViewModel.categories.value).isEmpty()
+    fun `loadCategories() updates trivia categories from db`() {
+        assertThat(chooseTriviaCategoryViewModel.categories.value).isEmpty()
 
-        chooseCategoryViewModel.loadCategories()
+        chooseTriviaCategoryViewModel.loadCategories()
 
-        assertThat(chooseCategoryViewModel.categories.value).isEqualTo(
-            TestCategories)
+        assertThat(chooseTriviaCategoryViewModel.categories.value).isEqualTo(
+            TestTriviaCategories)
     }
 
     companion object {
-        val TestCategories: List<TriviaCategory> = listOf(
+        val TestTriviaCategories: List<TriviaCategory> = listOf(
             TriviaCategory(9, "General Knowledge"),
             TriviaCategory(10, "Entertainment: Books"),
             TriviaCategory(11, "Entertainment: Film"),

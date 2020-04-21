@@ -2,9 +2,11 @@ package com.bbrakenhoff.opentrivia
 
 import android.app.Application
 import com.bbrakenhoff.opentrivia.networking.NetworkModule
-import com.bbrakenhoff.opentrivia.ui.ChooseCategoryModule
+import com.bbrakenhoff.opentrivia.ui.ChooseTriviaCategoryModule
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class TriviaApp : Application() {
 
@@ -12,8 +14,9 @@ class TriviaApp : Application() {
         super.onCreate()
 
         startKoin {
+            androidLogger(Level.DEBUG)
             androidContext(this@TriviaApp)
-            modules(listOf(NetworkModule.start(), ChooseCategoryModule.start()))
+            modules(listOf(NetworkModule.start(), ChooseTriviaCategoryModule.start()))
         }
     }
 }

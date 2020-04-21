@@ -4,16 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
 
-class ChooseCategoryViewModel : ViewModel() {
+class ChooseTriviaCategoryViewModel : ViewModel() {
 
     val categories = MutableLiveData<List<TriviaCategory>>(emptyList())
 
     fun loadCategories() {
-        categories.value = TestCategories
+        categories.value = TestTriviaCategories
     }
 
     companion object {
-        val TestCategories: List<TriviaCategory> = listOf(
+        val TestTriviaCategories: List<TriviaCategory> = listOf(
             TriviaCategory(9, "General Knowledge"), TriviaCategory(10,
                                                                    "Entertainment: Books"),
             TriviaCategory(11, "Entertainment: Film"),
