@@ -8,7 +8,7 @@ import com.bbrakenhoff.opentrivia.model.TriviaCategory
 
 class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaCategoryViewHolder>() {
 
-    var triviaCategories: List<TriviaCategory> = emptyList()
+    var categories: List<TriviaCategory> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -20,17 +20,17 @@ class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaC
         return TriviaCategoryViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = triviaCategories.size
+    override fun getItemCount(): Int = categories.size
 
-    override fun onBindViewHolder(triviaCategoryViewHolder: TriviaCategoryViewHolder, position: Int) {
-        val triviaCategory = triviaCategories[position]
-        triviaCategoryViewHolder.bind(triviaCategory)
+    override fun onBindViewHolder(categoryViewHolder: TriviaCategoryViewHolder, position: Int) {
+        val category = categories[position]
+        categoryViewHolder.bind(category)
     }
 
     class TriviaCategoryViewHolder(private val text1: TextView) : RecyclerView.ViewHolder(text1) {
 
-        fun bind(triviaCategory: TriviaCategory) {
-            text1.text = triviaCategory.name
+        fun bind(category: TriviaCategory) {
+            text1.text = category.name
         }
     }
 }

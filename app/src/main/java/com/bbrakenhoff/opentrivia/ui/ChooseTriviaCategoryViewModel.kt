@@ -9,11 +9,11 @@ class ChooseTriviaCategoryViewModel : ViewModel() {
     val categories = MutableLiveData<List<TriviaCategory>>(emptyList())
 
     fun loadCategories() {
-        categories.value = TestTriviaCategories
+        categories.value = TestCategories
     }
 
     companion object {
-        val TestTriviaCategories: List<TriviaCategory> = listOf(
+        val TestCategories: List<TriviaCategory> = listOf(
             TriviaCategory(9, "General Knowledge"), TriviaCategory(10,
                                                                    "Entertainment: Books"),
             TriviaCategory(11, "Entertainment: Film"),

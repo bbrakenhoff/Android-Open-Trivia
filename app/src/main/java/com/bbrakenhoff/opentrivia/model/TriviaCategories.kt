@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TriviaCategories(
-    @SerialName("trivia_categories") val triviaCategories: List<TriviaCategory>
+    @SerialName("trivia_categories") val categories: List<TriviaCategory>
 )

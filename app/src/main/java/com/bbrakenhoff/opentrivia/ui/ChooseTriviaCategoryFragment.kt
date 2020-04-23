@@ -12,25 +12,25 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChooseTriviaCategoryFragment : Fragment() {
 
-    val chooseTriviaCategoryViewModel: ChooseTriviaCategoryViewModel by viewModel()
+    private val chooseCategoryViewModel: ChooseTriviaCategoryViewModel by viewModel()
 
-    private lateinit var triviaCategoryAdapter: TriviaCategoryAdapter
+    private lateinit var categoryAdapter: TriviaCategoryAdapter
 
-    private lateinit var triviaCategoryRecyclerView: RecyclerView
+    private lateinit var categoryRecyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_choose_category, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        triviaCategoryAdapter = TriviaCategoryAdapter()
-        triviaCategoryRecyclerView = view.findViewById(R.id.triviaCategoriesRecyclerView)
-        triviaCategoryRecyclerView.adapter = triviaCategoryAdapter
+        categoryAdapter = TriviaCategoryAdapter()
+        categoryRecyclerView = view.findViewById(R.id.categoriesRecyclerView)
+        categoryRecyclerView.adapter = categoryAdapter
 
-        chooseTriviaCategoryViewModel.categories.observe(viewLifecycleOwner, Observer {
-            triviaCategoryAdapter.triviaCategories = it
+        chooseCategoryViewModel.categories.observe(viewLifecycleOwner, Observer {
+            categoryAdapter.categories = it
         })
-        chooseTriviaCategoryViewModel.loadCategories()
+        chooseCategoryViewModel.loadCategories()
     }
 
     companion object {

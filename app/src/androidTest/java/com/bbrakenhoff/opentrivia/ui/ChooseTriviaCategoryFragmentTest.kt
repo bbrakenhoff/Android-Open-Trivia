@@ -23,8 +23,8 @@ class ChooseTriviaCategoryFragmentTest {
     }
 
     @Test
-    fun displaysLoadedTriviaCategoriesInOrder() {
-        onView(withId(R.id.triviaCategoriesRecyclerView)).check(withItemCount(equalTo(TestTriviaCategories.size)))
+    fun displaysLoadedCategoriesInOrder() {
+        onView(withId(R.id.categoriesRecyclerView)).check(withItemCount(equalTo(TestCategories.size)))
     }
 
     private fun withItemCount(matcher: Matcher<Int>) = object : ViewAssertion {
@@ -40,7 +40,7 @@ class ChooseTriviaCategoryFragmentTest {
     }
 
     companion object {
-        val TestTriviaCategories: List<TriviaCategory> = listOf(
+        val TestCategories: List<TriviaCategory> = listOf(
             TriviaCategory(9, "General Knowledge"),
             TriviaCategory(10, "Entertainment: Books"),
             TriviaCategory(11, "Entertainment: Film"),
