@@ -1,7 +1,7 @@
 package com.bbrakenhoff.opentrivia
 
 import android.app.Application
-import com.bbrakenhoff.opentrivia.networking.NetworkModule
+import com.bbrakenhoff.opentrivia.api.NetworkModule
 import com.bbrakenhoff.opentrivia.ui.ChooseTriviaCategoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

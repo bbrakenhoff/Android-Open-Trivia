@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia.networking
+package com.bbrakenhoff.opentrivia.api
 
 import com.bbrakenhoff.opentrivia.KoinModule
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory

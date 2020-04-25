@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia.networking
+package com.bbrakenhoff.opentrivia.api
 
 import com.bbrakenhoff.opentrivia.model.TriviaCategories
 import com.bbrakenhoff.opentrivia.model.TriviaQuestionDifficulty

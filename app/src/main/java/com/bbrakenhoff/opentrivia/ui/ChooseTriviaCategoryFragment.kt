@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bbrakenhoff.opentrivia.R
-import com.bbrakenhoff.opentrivia.networking.OpenTriviaApi
+import com.bbrakenhoff.opentrivia.api.OpenTriviaApi
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

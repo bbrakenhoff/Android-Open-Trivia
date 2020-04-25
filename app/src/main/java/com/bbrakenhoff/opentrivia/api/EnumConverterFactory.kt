@@ -1,11 +1,9 @@
-package com.bbrakenhoff.opentrivia.networking
+package com.bbrakenhoff.opentrivia.api
 
-import kotlinx.serialization.SerialName
 import retrofit2.Converter
 import retrofit2.Retrofit
 import java.lang.reflect.Type
 import java.util.*
-import kotlin.reflect.KClass
 
 class EnumConverterFactory : Converter.Factory() {
 
