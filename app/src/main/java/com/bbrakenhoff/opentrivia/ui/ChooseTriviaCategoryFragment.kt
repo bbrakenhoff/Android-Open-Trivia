@@ -1,13 +1,18 @@
 package com.bbrakenhoff.opentrivia.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bbrakenhoff.opentrivia.R
+import com.bbrakenhoff.opentrivia.networking.OpenTriviaApi
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChooseTriviaCategoryFragment : Fragment() {
@@ -31,6 +36,21 @@ class ChooseTriviaCategoryFragment : Fragment() {
             categoryAdapter.categories = it
         })
         chooseCategoryViewModel.loadCategories()
+
+        // TODO: Test code: remove when using requests in ViewModels
+        testApi()
+    }
+
+    private val api: OpenTriviaApi by inject()
+
+    private fun testApi() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val categories = api.getCategories()
+            Log.d("ChooseCategoryFrag", "Bijoya - testApi: CATEGORIES $categories")
+
+            val questions = api.getQuestions()
+            Log.d("ChooseCategoryFrag", "Bijoya - testApi: QUESTIONS $questions")
+        }
     }
 
     companion object {
