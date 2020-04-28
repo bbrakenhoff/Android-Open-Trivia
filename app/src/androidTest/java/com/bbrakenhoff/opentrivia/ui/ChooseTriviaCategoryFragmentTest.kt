@@ -1,12 +1,10 @@
 package com.bbrakenhoff.opentrivia.ui
 
-import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.NoMatchingViewException
 import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -25,9 +23,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
-import org.koin.test.KoinTest
 
-class ChooseTriviaCategoryFragmentTest : KoinTest {
+class ChooseTriviaCategoryFragmentTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -37,9 +34,10 @@ class ChooseTriviaCategoryFragmentTest : KoinTest {
 
     @Before
     fun beforeEach() {
-        categoriesMock = MutableLiveData(TestCategories)
+        categoriesMock = MutableLiveData(emptyList())
         chooseCategoryViewModel = mockk(relaxed = true) {
             every { categories } answers { categoriesMock }
+            every { refreshCategories() } answers { categoriesMock.value = TestCategories }
         }
 
         loadKoinModules(module {
@@ -60,16 +58,14 @@ class ChooseTriviaCategoryFragmentTest : KoinTest {
         onView(withId(R.id.categoriesRecyclerView)).check(withItemCount(equalTo(TestCategories.size)))
     }
 
-    private fun withItemCount(matcher: Matcher<Int>) = object : ViewAssertion {
-        override fun check(view: View?, noViewFoundException: NoMatchingViewException?) {
-            if (noViewFoundException != null) {
-                throw noViewFoundException
-            }
-
-            val recyclerView = view as RecyclerView
-            val adapter = recyclerView.adapter
-            assertThat(adapter?.itemCount, matcher)
+    private fun withItemCount(matcher: Matcher<Int>) = ViewAssertion { view, noViewFoundException ->
+        if (noViewFoundException != null) {
+            throw noViewFoundException
         }
+
+        val recyclerView = view as RecyclerView
+        val adapter = recyclerView.adapter
+        assertThat(adapter?.itemCount, matcher)
     }
 
     companion object {

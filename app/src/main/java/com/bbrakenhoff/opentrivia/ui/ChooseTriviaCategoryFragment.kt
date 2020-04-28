@@ -36,21 +36,6 @@ class ChooseTriviaCategoryFragment : Fragment() {
             categoryAdapter.categories = it
         })
         chooseCategoryViewModel.refreshCategories()
-
-        // TODO: Test code: remove when using requests in ViewModels
-        testApi()
-    }
-
-    private val api: OpenTriviaApi by inject()
-
-    private fun testApi() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val categories = api.getCategories()
-            Log.d("ChooseCategoryFrag", "Bijoya - testApi: CATEGORIES $categories")
-
-            val questions = api.getQuestions()
-            Log.d("ChooseCategoryFrag", "Bijoya - testApi: QUESTIONS $questions")
-        }
     }
 
     companion object {
