@@ -1,6 +1,5 @@
 package com.bbrakenhoff.opentrivia.repository
 
-import com.bbrakenhoff.opentrivia.TriviaApp
 import com.bbrakenhoff.opentrivia.api.OpenTriviaApi
 import com.bbrakenhoff.opentrivia.database.TriviaCategoryDao
 

@@ -8,6 +8,6 @@ import org.koin.dsl.module
 object ChooseTriviaCategoryModule : KoinModule {
     override fun start(): Module = module {
 
-        viewModel { ChooseTriviaCategoryViewModel() }
+        viewModel { ChooseTriviaCategoryViewModel(get()) }
     }
 }

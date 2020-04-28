@@ -1,7 +1,9 @@
 package com.bbrakenhoff.opentrivia.ui
 
 import android.view.View
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.NoMatchingViewException
@@ -10,20 +12,51 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.equalTo
+import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.stopKoin
+import org.koin.dsl.module
+import org.koin.test.KoinTest
 
-class ChooseTriviaCategoryFragmentTest {
+class ChooseTriviaCategoryFragmentTest : KoinTest {
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private lateinit var categoriesMock: MutableLiveData<List<TriviaCategory>>
+    private lateinit var chooseCategoryViewModel: ChooseTriviaCategoryViewModel
 
     @Before
     fun beforeEach() {
+        categoriesMock = MutableLiveData(TestCategories)
+        chooseCategoryViewModel = mockk(relaxed = true) {
+            every { categories } answers { categoriesMock }
+        }
+
+        loadKoinModules(module {
+            viewModel(override = true) { chooseCategoryViewModel }
+        })
+
         launchFragmentInContainer<ChooseTriviaCategoryFragment>()
+    }
+
+    @After
+    fun afterEach() {
+        stopKoin()
     }
 
     @Test
     fun displaysLoadedCategoriesInOrder() {
+        verify { chooseCategoryViewModel.refreshCategories() }
         onView(withId(R.id.categoriesRecyclerView)).check(withItemCount(equalTo(TestCategories.size)))
     }
 

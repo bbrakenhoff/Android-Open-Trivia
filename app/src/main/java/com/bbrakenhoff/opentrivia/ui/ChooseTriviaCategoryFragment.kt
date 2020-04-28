@@ -35,7 +35,7 @@ class ChooseTriviaCategoryFragment : Fragment() {
         chooseCategoryViewModel.categories.observe(viewLifecycleOwner, Observer {
             categoryAdapter.categories = it
         })
-        chooseCategoryViewModel.loadCategories()
+        chooseCategoryViewModel.refreshCategories()
 
         // TODO: Test code: remove when using requests in ViewModels
         testApi()

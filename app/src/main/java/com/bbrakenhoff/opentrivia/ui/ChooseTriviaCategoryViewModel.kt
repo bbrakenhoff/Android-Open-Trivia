@@ -1,21 +1,28 @@
 package com.bbrakenhoff.opentrivia.ui
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
+import com.bbrakenhoff.opentrivia.repository.TriviaCategoryRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ChooseTriviaCategoryViewModel : ViewModel() {
+class ChooseTriviaCategoryViewModel(private val categoryRepository: TriviaCategoryRepository) : ViewModel() {
 
-    val categories = MutableLiveData<List<TriviaCategory>>(emptyList())
+    val categories = categoryRepository.categories
 
-    fun loadCategories() {
-        categories.value = TestCategories
+    fun refreshCategories() {
+        viewModelScope.launch(Dispatchers.IO) {
+            categoryRepository.refreshCategories()
+        }
     }
 
     companion object {
         val TestCategories: List<TriviaCategory> = listOf(
-            TriviaCategory(9, "General Knowledge"), TriviaCategory(10,
-                                                                   "Entertainment: Books"),
+            TriviaCategory(9, "General Knowledge"), TriviaCategory(
+                10,
+                "Entertainment: Books"
+            ),
             TriviaCategory(11, "Entertainment: Film"),
             TriviaCategory(12, "Entertainment: Music"),
             TriviaCategory(13, "Entertainment: Musicals & Theatres"),

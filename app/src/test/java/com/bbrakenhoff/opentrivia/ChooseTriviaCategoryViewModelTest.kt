@@ -1,39 +1,49 @@
 package com.bbrakenhoff.opentrivia
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
+import com.bbrakenhoff.opentrivia.repository.TriviaCategoryRepository
 import com.bbrakenhoff.opentrivia.ui.ChooseTriviaCategoryViewModel
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
-
+import io.mockk.*
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class ChooseTriviaCategoryViewModelTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var chooseTriviaCategoryViewModel: ChooseTriviaCategoryViewModel
+    private lateinit var categoriesFromRepository: MutableLiveData<List<TriviaCategory>>
+    private lateinit var categoryRepositoryMock: TriviaCategoryRepository
+    private lateinit var categoriesObserverMock: Observer<List<TriviaCategory>>
+
+    private lateinit var chooseTriviaCategoryViewModel: ChooseTriviaCategoryViewModel
 
     @Before
     fun beforeEach() {
-        chooseTriviaCategoryViewModel = ChooseTriviaCategoryViewModel()
+        categoriesFromRepository = spyk(MutableLiveData(emptyList()))
+        categoryRepositoryMock = mockk {
+            every { categories } returns categoriesFromRepository
+            coEvery { refreshCategories() } answers { categoriesFromRepository.value = TestCategories }
+        }
+
+        chooseTriviaCategoryViewModel = ChooseTriviaCategoryViewModel(categoryRepositoryMock)
+        categoriesObserverMock = mockk(relaxed = true)
+        chooseTriviaCategoryViewModel.categories.observeForever(categoriesObserverMock)
     }
 
     @Test
-    fun `loadCategories() updates categories from db`() {
+    fun `refreshCategories() updates categories from db`() {
         assertThat(chooseTriviaCategoryViewModel.categories.value).isEmpty()
 
-        chooseTriviaCategoryViewModel.loadCategories()
-
-        assertThat(chooseTriviaCategoryViewModel.categories.value).isEqualTo(
-            TestCategories)
+        chooseTriviaCategoryViewModel.refreshCategories()
+        verify { categoriesObserverMock.onChanged(any()) }
+        coVerify { categoryRepositoryMock.refreshCategories() }
+        assertThat(chooseTriviaCategoryViewModel.categories.value).isEqualTo(TestCategories)
     }
 
     companion object {
