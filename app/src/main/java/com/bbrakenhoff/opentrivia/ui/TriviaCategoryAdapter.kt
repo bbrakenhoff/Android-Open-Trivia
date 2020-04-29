@@ -1,5 +1,6 @@
 package com.bbrakenhoff.opentrivia.ui
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -31,6 +32,14 @@ class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaC
 
         fun bind(category: TriviaCategory) {
             text1.text = category.name
+            text1.setTypeface(text1.typeface, getTypefaceStyle(category))
         }
+
+        private fun getTypefaceStyle(category: TriviaCategory) =
+            if (category == TriviaCategory.AnyCategory) {
+                Typeface.ITALIC
+            } else {
+                Typeface.NORMAL
+            }
     }
 }

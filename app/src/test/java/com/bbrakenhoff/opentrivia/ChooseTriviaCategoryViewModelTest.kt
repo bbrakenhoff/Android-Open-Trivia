@@ -37,13 +37,15 @@ class ChooseTriviaCategoryViewModelTest {
     }
 
     @Test
-    fun `refreshCategories() updates categories from db`() {
-        assertThat(chooseTriviaCategoryViewModel.categories.value).isEmpty()
-
+    fun `refreshCategories() refreshes categories in repository and add item for any category in local live data when categories refreshed in repository`() {
         chooseTriviaCategoryViewModel.refreshCategories()
+
         verify { categoriesObserverMock.onChanged(any()) }
         coVerify { categoryRepositoryMock.refreshCategories() }
-        assertThat(chooseTriviaCategoryViewModel.categories.value).isEqualTo(TestCategories)
+
+        val modifiedCategories = ArrayList<TriviaCategory>(TestCategories)
+        modifiedCategories.add(0, TriviaCategory.AnyCategory)
+        assertThat(chooseTriviaCategoryViewModel.categories.value).isEqualTo(modifiedCategories)
     }
 
     companion object {

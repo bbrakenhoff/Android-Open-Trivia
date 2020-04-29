@@ -51,9 +51,7 @@ class TriviaCategoryRepositoryTest {
         categoriesFromDatabase.addAll(TestCategories.subList(0, 12))
         categoriesFromApi.addAll(TestCategories.subList(12, TestCategories.lastIndex))
 
-        runBlocking {
-            categoryRepository.refreshCategories()
-        }
+        runBlocking { categoryRepository.refreshCategories() }
 
         verifyOrder {
             categoryDaoMock.deleteAll()

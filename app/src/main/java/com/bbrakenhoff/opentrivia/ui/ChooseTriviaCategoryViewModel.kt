@@ -1,5 +1,6 @@
 package com.bbrakenhoff.opentrivia.ui
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
@@ -9,7 +10,20 @@ import kotlinx.coroutines.launch
 
 class ChooseTriviaCategoryViewModel(private val categoryRepository: TriviaCategoryRepository) : ViewModel() {
 
-    val categories = categoryRepository.categories
+    val categories = MediatorLiveData<List<TriviaCategory>>()
+
+    init {
+        categories.addSource(categoryRepository.categories) {
+            addAnyCategoryToCategories(it)
+        }
+    }
+
+    private fun addAnyCategoryToCategories(categoriesFromRepository: List<TriviaCategory>) {
+        val modifiedCategories = ArrayList<TriviaCategory>()
+        modifiedCategories.add(TriviaCategory.AnyCategory)
+        modifiedCategories.addAll(categoriesFromRepository)
+        categories.value = modifiedCategories
+    }
 
     fun refreshCategories() {
         viewModelScope.launch(Dispatchers.IO) {

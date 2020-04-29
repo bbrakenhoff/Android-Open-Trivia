@@ -10,4 +10,9 @@ import kotlinx.serialization.Serializable
 data class TriviaCategory(
     @PrimaryKey(autoGenerate = false) @SerialName("id") val id: Int,
     @SerialName("name") val name: String
-)
+) {
+
+    companion object {
+        val AnyCategory = TriviaCategory(-1, "Any Category")
+    }
+}

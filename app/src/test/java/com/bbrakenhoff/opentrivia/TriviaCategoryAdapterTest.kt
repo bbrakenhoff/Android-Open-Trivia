@@ -1,5 +1,6 @@
 package com.bbrakenhoff.opentrivia
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -68,16 +69,32 @@ class TriviaCategoryAdapterTest {
 
     @Test
     fun `TriviaCategoryViewHolder_bind(category) sets the name of the category to the TextView`() {
-        val position = 3
+        val position = 4
         val testCategory = TestCategories[position]
         val createdViewHolder = categoryAdapter.onCreateViewHolder(mockParentViewGroup, 0)
 
         createdViewHolder.bind(testCategory)
         verify { (createdViewHolder.itemView as TextView).text = testCategory.name }
+        val itemTextView = createdViewHolder.itemView as TextView
+        verify { itemTextView.setTypeface(itemTextView.typeface, Typeface.NORMAL) }
+    }
+
+    @Test
+
+    fun `TriviaCategoryViewHolder_bind(category) sets text style to italic when category represents any category`() {
+        val position = 0
+        val testCategory = TestCategories[position]
+        val createdViewHolder = categoryAdapter.onCreateViewHolder(mockParentViewGroup, 0)
+
+        createdViewHolder.bind(testCategory)
+        val itemTextView = createdViewHolder.itemView as TextView
+        verify { (createdViewHolder.itemView as TextView).text = testCategory.name }
+        verify { itemTextView.setTypeface(itemTextView.typeface, Typeface.ITALIC) }
     }
 
     companion object {
         val TestCategories: List<TriviaCategory> = listOf(
+            TriviaCategory.AnyCategory,
             TriviaCategory(9, "General Knowledge"),
             TriviaCategory(10, "Entertainment: Books"),
             TriviaCategory(11, "Entertainment: Film"),
