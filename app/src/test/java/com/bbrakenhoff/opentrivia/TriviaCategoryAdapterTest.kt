@@ -2,6 +2,7 @@ package com.bbrakenhoff.opentrivia
 
 import android.graphics.Typeface
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
@@ -80,7 +81,6 @@ class TriviaCategoryAdapterTest {
     }
 
     @Test
-
     fun `TriviaCategoryViewHolder_bind(category) sets text style to italic when category represents any category`() {
         val position = 0
         val testCategory = TestCategories[position]
@@ -90,6 +90,30 @@ class TriviaCategoryAdapterTest {
         val itemTextView = createdViewHolder.itemView as TextView
         verify { (createdViewHolder.itemView as TextView).text = testCategory.name }
         verify { itemTextView.setTypeface(itemTextView.typeface, Typeface.ITALIC) }
+    }
+
+    @Test
+    fun `TriviaCategoryViewHolder_bind(category) sets click listener`() {
+        val position = 0
+        val testCategory = TestCategories[position]
+        val createdViewHolder = categoryAdapter.onCreateViewHolder(mockParentViewGroup, 0)
+        val onItemClickListenerMock = mockk<TriviaCategoryAdapter.OnItemClickListener>(relaxed = true)
+        categoryAdapter.onItemClickListener = onItemClickListenerMock
+
+        val clickListenerSlot = CapturingSlot<View.OnClickListener>()
+        every { createdViewHolder.itemView.setOnClickListener(capture(clickListenerSlot)) } answers { }
+        every { createdViewHolder.itemView.performClick() } answers (object : Answer<Boolean> {
+            override fun answer(call: Call): Boolean {
+                clickListenerSlot.captured.onClick(createdViewHolder.itemView)
+                return true
+            }
+        })
+
+        createdViewHolder.bind(testCategory)
+        createdViewHolder.itemView.performClick()
+
+        verify { createdViewHolder.itemView.setOnClickListener(any()) }
+        verify { onItemClickListenerMock.onItemClicked(testCategory) }
     }
 
     companion object {

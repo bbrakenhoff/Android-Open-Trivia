@@ -15,6 +15,8 @@ class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaC
             notifyDataSetChanged()
         }
 
+    var onItemClickListener: OnItemClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TriviaCategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemView: TextView = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false) as TextView
@@ -28,11 +30,14 @@ class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaC
         categoryViewHolder.bind(category)
     }
 
-    class TriviaCategoryViewHolder(private val text1: TextView) : RecyclerView.ViewHolder(text1) {
+    inner class TriviaCategoryViewHolder(private val text1: TextView) : RecyclerView.ViewHolder(text1) {
 
         fun bind(category: TriviaCategory) {
             text1.text = category.name
             text1.setTypeface(text1.typeface, getTypefaceStyle(category))
+            text1.setOnClickListener {
+                onItemClickListener?.onItemClicked(category)
+            }
         }
 
         private fun getTypefaceStyle(category: TriviaCategory) =
@@ -41,5 +46,9 @@ class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaC
             } else {
                 Typeface.NORMAL
             }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClicked(category: TriviaCategory)
     }
 }
