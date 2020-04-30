@@ -68,13 +68,13 @@ dependencies {
     testImplementation "androidx.room:room-testing:2.2.5"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "com.google.truth:truth:1.0.1"
-    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation "io.mockk:mockk:1.10.0"
     testImplementation 'androidx.test.ext:junit:1.1.1'
 
     debugImplementation 'androidx.fragment:fragment-testing:1.2.4'
 
     androidTestImplementation "androidx.test:runner:1.2.0"
-    androidTestImplementation "io.mockk:mockk-android:1.9.3"
+    androidTestImplementation "io.mockk:mockk-android:1.10.0"
     androidTestImplementation "org.koin:koin-test:2.1.5"
     androidTestImplementation "com.google.truth:truth:1.0.1"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"

@@ -2,7 +2,7 @@ package com.bbrakenhoff.opentrivia.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAssertion
@@ -29,19 +29,20 @@ class ChooseTriviaCategoryFragmentTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var categoriesMock: MutableLiveData<List<TriviaCategory>>
-    private lateinit var chooseCategoryViewModel: ChooseTriviaCategoryViewModel
+    private lateinit var categoriesMock: MediatorLiveData<List<TriviaCategory>>
+    private lateinit var chooseCategoryViewModelMock: ChooseTriviaCategoryViewModel
 
     @Before
     fun beforeEach() {
-        categoriesMock = MutableLiveData(emptyList())
-        chooseCategoryViewModel = mockk(relaxed = true) {
+        categoriesMock = MediatorLiveData()
+        categoriesMock.value = emptyList()
+        chooseCategoryViewModelMock = mockk(relaxed = true) {
             every { categories } answers { categoriesMock }
             every { refreshCategories() } answers { categoriesMock.value = TestCategories }
         }
 
         loadKoinModules(module {
-            viewModel(override = true) { chooseCategoryViewModel }
+            viewModel(override = true) { chooseCategoryViewModelMock }
         })
 
         launchFragmentInContainer<ChooseTriviaCategoryFragment>()
@@ -54,7 +55,7 @@ class ChooseTriviaCategoryFragmentTest {
 
     @Test
     fun displaysLoadedCategoriesInOrder() {
-        verify { chooseCategoryViewModel.refreshCategories() }
+        verify { chooseCategoryViewModelMock.refreshCategories() }
         onView(withId(R.id.categoriesRecyclerView)).check(withItemCount(equalTo(TestCategories.size)))
     }
 
