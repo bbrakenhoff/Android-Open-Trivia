@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia
+package com.bbrakenhoff.opentrivia.ui
 
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
-import com.bbrakenhoff.opentrivia.ui.TriviaCategoryAdapter
 import com.bbrakenhoff.opentrivia.ui.TriviaCategoryAdapter.TriviaCategoryViewHolder
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -34,7 +33,8 @@ class TriviaCategoryAdapterTest {
         categoryAdapter = spyk(TriviaCategoryAdapter())
         every { categoryAdapter.notifyDataSetChanged() } answers { } // Do nothing
 
-        categoryAdapter.categories = TestCategories
+        categoryAdapter.categories =
+            TestCategories
     }
 
     @Test

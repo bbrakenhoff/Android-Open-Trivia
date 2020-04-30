@@ -1,11 +1,10 @@
-package com.bbrakenhoff.opentrivia
+package com.bbrakenhoff.opentrivia.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
 import com.bbrakenhoff.opentrivia.repository.TriviaCategoryRepository
-import com.bbrakenhoff.opentrivia.ui.ChooseTriviaCategoryViewModel
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
 import org.junit.Before
@@ -28,7 +27,9 @@ class ChooseTriviaCategoryViewModelTest {
         categoriesFromRepository = spyk(MutableLiveData(emptyList()))
         categoryRepositoryMock = mockk {
             every { categories } returns categoriesFromRepository
-            coEvery { refreshCategories() } answers { categoriesFromRepository.value = TestCategories }
+            coEvery { refreshCategories() } answers { categoriesFromRepository.value =
+                TestCategories
+            }
         }
 
         chooseTriviaCategoryViewModel = ChooseTriviaCategoryViewModel(categoryRepositoryMock)
