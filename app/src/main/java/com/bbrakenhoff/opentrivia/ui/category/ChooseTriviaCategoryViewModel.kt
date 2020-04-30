@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia.ui
+package com.bbrakenhoff.opentrivia.ui.category
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel

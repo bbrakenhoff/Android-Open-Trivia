@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia.ui
+package com.bbrakenhoff.opentrivia.ui.category
 
 import android.graphics.Typeface
 import android.view.LayoutInflater

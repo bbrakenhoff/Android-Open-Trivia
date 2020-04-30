@@ -2,7 +2,7 @@ package com.bbrakenhoff.opentrivia
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bbrakenhoff.opentrivia.ui.ChooseTriviaCategoryFragment
+import com.bbrakenhoff.opentrivia.ui.category.ChooseTriviaCategoryFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -4,7 +4,7 @@ import android.app.Application
 import com.bbrakenhoff.opentrivia.api.NetworkModule
 import com.bbrakenhoff.opentrivia.database.DatabaseModule
 import com.bbrakenhoff.opentrivia.repository.RepositoryModule
-import com.bbrakenhoff.opentrivia.ui.ChooseTriviaCategoryModule
+import com.bbrakenhoff.opentrivia.ui.category.ChooseTriviaCategoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

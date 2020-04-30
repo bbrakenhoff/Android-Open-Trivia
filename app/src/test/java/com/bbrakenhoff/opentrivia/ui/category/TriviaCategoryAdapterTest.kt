@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia.ui
+package com.bbrakenhoff.opentrivia.ui.category
 
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
-import com.bbrakenhoff.opentrivia.ui.TriviaCategoryAdapter.TriviaCategoryViewHolder
+import com.bbrakenhoff.opentrivia.ui.category.TriviaCategoryAdapter.TriviaCategoryViewHolder
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
 import org.junit.Before

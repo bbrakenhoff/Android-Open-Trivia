@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia.ui
+package com.bbrakenhoff.opentrivia.ui.category
 
 import com.bbrakenhoff.opentrivia.KoinModule
 import org.koin.androidx.viewmodel.dsl.viewModel

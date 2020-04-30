@@ -1,4 +1,4 @@
-package com.bbrakenhoff.opentrivia.ui
+package com.bbrakenhoff.opentrivia.ui.category
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
@@ -38,7 +38,9 @@ class ChooseTriviaCategoryFragmentTest {
         categoriesMock.value = emptyList()
         chooseCategoryViewModelMock = mockk(relaxed = true) {
             every { categories } answers { categoriesMock }
-            every { refreshCategories() } answers { categoriesMock.value = TestCategories }
+            every { refreshCategories() } answers { categoriesMock.value =
+                TestCategories
+            }
         }
 
         loadKoinModules(module {
