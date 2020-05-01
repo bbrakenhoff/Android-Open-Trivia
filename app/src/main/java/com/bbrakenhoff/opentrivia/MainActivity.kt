@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentContainer, ChooseTriviaQuestionDifficultyFragment.newInstance())
+            .replace(R.id.fragmentContainer, ChooseTriviaCategoryFragment.newInstance())
             .commit()
     }
 }

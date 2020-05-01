@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
 
 class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaCategoryViewHolder>() {
@@ -19,7 +20,7 @@ class TriviaCategoryAdapter : RecyclerView.Adapter<TriviaCategoryAdapter.TriviaC
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TriviaCategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val itemView: TextView = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false) as TextView
+        val itemView: TextView = layoutInflater.inflate(R.layout.item_category, parent, false) as TextView
         return TriviaCategoryViewHolder(itemView)
     }
 

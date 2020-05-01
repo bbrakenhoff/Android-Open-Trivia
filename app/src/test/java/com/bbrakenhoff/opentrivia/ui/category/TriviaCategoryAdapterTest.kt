@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
 import com.bbrakenhoff.opentrivia.ui.category.TriviaCategoryAdapter.TriviaCategoryViewHolder
 import com.google.common.truth.Truth.assertThat
@@ -24,7 +25,7 @@ class TriviaCategoryAdapterTest {
         mockParentViewGroup = mockk(relaxed = true)
 
         mockLayoutInflater = mockk {
-            every { inflate(android.R.layout.simple_list_item_1, mockParentViewGroup, false) } returns mockk<TextView>(relaxed = true)
+            every { inflate(R.layout.item_category, mockParentViewGroup, false) } returns mockk<TextView>(relaxed = true)
         }
 
         mockkStatic("android.view.LayoutInflater")
@@ -54,7 +55,7 @@ class TriviaCategoryAdapterTest {
         val createdViewHolder = categoryAdapter.onCreateViewHolder(mockParentViewGroup, 0)
 
         assertThat(createdViewHolder).isInstanceOf(TriviaCategoryViewHolder::class.java)
-        verify { mockLayoutInflater.inflate(android.R.layout.simple_list_item_1, any(), false) }
+        verify { mockLayoutInflater.inflate(R.layout.item_category, any(), false) }
     }
 
     @Test

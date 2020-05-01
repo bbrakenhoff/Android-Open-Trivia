@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bbrakenhoff.opentrivia.model.TriviaCategory
+import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaQuestionDifficulty
 
 class TriviaQuestionDifficultyAdapter : RecyclerView.Adapter<TriviaQuestionDifficultyAdapter.TriviaQuestionDifficultyViewHolder>() {
@@ -15,8 +15,7 @@ class TriviaQuestionDifficultyAdapter : RecyclerView.Adapter<TriviaQuestionDiffi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TriviaQuestionDifficultyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val itemView: TextView = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false) as TextView
-        itemView.gravity = Gravity.CENTER
+        val itemView: TextView = layoutInflater.inflate(R.layout.item_question_difficulty, parent, false) as TextView
         return TriviaQuestionDifficultyViewHolder(itemView)
     }
 

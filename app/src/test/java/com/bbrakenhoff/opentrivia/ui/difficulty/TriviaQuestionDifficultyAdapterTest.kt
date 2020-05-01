@@ -1,12 +1,12 @@
 package com.bbrakenhoff.opentrivia.ui.difficulty
 
-import android.R
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaQuestionDifficulty
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -25,7 +25,7 @@ class TriviaQuestionDifficultyAdapterTest {
         mockParentViewGroup = mockk(relaxed = true)
 
         mockLayoutInflater = mockk {
-            every { inflate(R.layout.simple_list_item_1, mockParentViewGroup, false) } returns mockk<TextView>(relaxed = true)
+            every { inflate(R.layout.item_question_difficulty, mockParentViewGroup, false) } returns mockk<TextView>(relaxed = true)
         }
 
         mockkStatic("android.view.LayoutInflater")
@@ -45,8 +45,7 @@ class TriviaQuestionDifficultyAdapterTest {
         val createdViewHolder = questionDifficultyAdapter.onCreateViewHolder(mockParentViewGroup, 0)
 
         assertThat(createdViewHolder).isInstanceOf(TriviaQuestionDifficultyAdapter.TriviaQuestionDifficultyViewHolder::class.java)
-        verify { mockLayoutInflater.inflate(R.layout.simple_list_item_1, any(), false) }
-        verify { (createdViewHolder.itemView as TextView).gravity = Gravity.CENTER }
+        verify { mockLayoutInflater.inflate(R.layout.item_question_difficulty, any(), false) }
     }
 
     @Test
