@@ -58,7 +58,7 @@ class TriviaCategoryAdapterTest {
     }
 
     @Test
-    fun `onBindViewHolder(triviaCategoryViewHolder, position) binds TriviaCategoryViewHolder to category at given position`() {
+    fun `onBindViewHolder(categoryViewHolder, position) binds TriviaCategoryViewHolder to category at given position`() {
         val position = 3
         val testTriviaCategory = TestCategories[position]
         val createdViewHolder = spyk(categoryAdapter.onCreateViewHolder(mockParentViewGroup, 0))

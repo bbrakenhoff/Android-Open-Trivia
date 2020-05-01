@@ -6,6 +6,7 @@ import java.util.*
 @Serializable
 enum class TriviaQuestionDifficulty {
 
+    Any,
     Easy,
     Medium,
     Hard;

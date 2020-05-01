@@ -3,6 +3,7 @@ package com.bbrakenhoff.opentrivia
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bbrakenhoff.opentrivia.ui.category.ChooseTriviaCategoryFragment
+import com.bbrakenhoff.opentrivia.ui.difficulty.ChooseTriviaQuestionDifficultyFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentContainer, ChooseTriviaCategoryFragment.newInstance())
+            .replace(R.id.fragmentContainer, ChooseTriviaQuestionDifficultyFragment.newInstance())
             .commit()
     }
 }
