@@ -3,23 +3,25 @@ package com.bbrakenhoff.opentrivia.ui.difficulty
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAssertion
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.bbrakenhoff.opentrivia.KoinTestRule
 import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaQuestionDifficulty
-import com.bbrakenhoff.opentrivia.ui.category.*
-import io.mockk.*
+import io.mockk.mockk
+import io.mockk.verify
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers
 import org.hamcrest.Matchers.equalTo
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.koin.core.context.stopKoin
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 class ChooseTriviaQuestionDifficultyFragmentTest {
 
@@ -27,8 +29,16 @@ class ChooseTriviaQuestionDifficultyFragmentTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    val koinTestRule = KoinTestRule(module {
+        viewModel(override = true) { chooseQuestionDifficultyViewModel }
+    })
+
+    private lateinit var chooseQuestionDifficultyViewModel: ChooseTriviaQuestionDifficultyViewModel
+
     @Before
     fun beforeEach() {
+        chooseQuestionDifficultyViewModel = mockk(relaxed = true)
         launchFragmentInContainer<ChooseTriviaQuestionDifficultyFragment>()
     }
 
@@ -38,6 +48,14 @@ class ChooseTriviaQuestionDifficultyFragmentTest {
             .check(withItemCount(equalTo(TriviaQuestionDifficulty.values().size)))
     }
 
+    @Test
+    fun callsViewModelWhenItemClicked() {
+        onView(withId(R.id.questionDifficultiesRecyclerView))
+            .perform(actionOnItemAtPosition<TriviaQuestionDifficultyAdapter.TriviaQuestionDifficultyViewHolder>(0, click()))
+
+        verify { chooseQuestionDifficultyViewModel.onQuestionDifficultyChosen(TriviaQuestionDifficulty.Any) }
+    }
+
     private fun withItemCount(matcher: Matcher<Int>) = ViewAssertion { view, noViewFoundException ->
         if (noViewFoundException != null) {
             throw noViewFoundException
@@ -45,6 +63,6 @@ class ChooseTriviaQuestionDifficultyFragmentTest {
 
         val recyclerView = view as RecyclerView
         val adapter = recyclerView.adapter
-        ViewMatchers.assertThat(adapter?.itemCount, matcher)
+        assertThat(adapter?.itemCount, matcher)
     }
 }

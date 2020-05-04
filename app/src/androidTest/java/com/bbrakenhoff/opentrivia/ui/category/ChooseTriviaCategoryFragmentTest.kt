@@ -6,8 +6,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAssertion
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import com.bbrakenhoff.opentrivia.KoinTestRule
 import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
 import io.mockk.every
@@ -15,19 +18,21 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.equalTo
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 
 class ChooseTriviaCategoryFragmentTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val koinTestRule = KoinTestRule(module {
+        viewModel(override = true) { chooseCategoryViewModelMock }
+    })
 
     private lateinit var categoriesMock: MediatorLiveData<List<TriviaCategory>>
     private lateinit var chooseCategoryViewModelMock: ChooseTriviaCategoryViewModel
@@ -38,27 +43,30 @@ class ChooseTriviaCategoryFragmentTest {
         categoriesMock.value = emptyList()
         chooseCategoryViewModelMock = mockk(relaxed = true) {
             every { categories } answers { categoriesMock }
-            every { refreshCategories() } answers { categoriesMock.value =
-                TestCategories
+            every { refreshCategories() } answers {
+                categoriesMock.value =
+                    TestCategories
             }
         }
 
-        loadKoinModules(module {
-            viewModel(override = true) { chooseCategoryViewModelMock }
-        })
-
         launchFragmentInContainer<ChooseTriviaCategoryFragment>()
-    }
-
-    @After
-    fun afterEach() {
-        stopKoin()
     }
 
     @Test
     fun displaysLoadedCategoriesInOrder() {
         verify { chooseCategoryViewModelMock.refreshCategories() }
         onView(withId(R.id.categoriesRecyclerView)).check(withItemCount(equalTo(TestCategories.size)))
+    }
+
+    @Test
+    fun callsViewModelWhenItemClicked() {
+        verify { chooseCategoryViewModelMock.refreshCategories() }
+
+
+        onView(withId(R.id.categoriesRecyclerView))
+            .perform(actionOnItemAtPosition<TriviaCategoryAdapter.TriviaCategoryViewHolder>(0, click()))
+
+        verify { chooseCategoryViewModelMock.onCategoryChosen(TestCategories[0]) }
     }
 
     private fun withItemCount(matcher: Matcher<Int>) = ViewAssertion { view, noViewFoundException ->

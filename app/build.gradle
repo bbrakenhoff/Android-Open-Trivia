@@ -31,7 +31,7 @@ android {
 
     // TODO: uncomment when mockk supports gradle 3.6
     // viewBinding.enabled true
-    dataBinding.enabled true
+    dataBinding.enabled false
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
@@ -59,6 +59,8 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:2.1.5"
     implementation "org.koin:koin-androidx-viewmodel:2.1.5"
     implementation "org.koin:koin-androidx-fragment:2.1.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha06"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha06"
     implementation "androidx.room:room-runtime:2.2.5"
     implementation "androidx.room:room-ktx:2.2.5"
     kapt "android.arch.persistence.room:compiler:2.2.5"
@@ -80,4 +82,5 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+//    androidTestImplementation "androidx.navigation:navigation-testing:2.3.0-alpha06"
 }

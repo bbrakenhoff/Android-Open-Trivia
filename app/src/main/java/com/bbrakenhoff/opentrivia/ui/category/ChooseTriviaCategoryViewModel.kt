@@ -31,6 +31,10 @@ class ChooseTriviaCategoryViewModel(private val categoryRepository: TriviaCatego
         }
     }
 
+    fun onCategoryChosen(category: TriviaCategory) {
+
+    }
+
     companion object {
         val TestCategories: List<TriviaCategory> = listOf(
             TriviaCategory(9, "General Knowledge"), TriviaCategory(
