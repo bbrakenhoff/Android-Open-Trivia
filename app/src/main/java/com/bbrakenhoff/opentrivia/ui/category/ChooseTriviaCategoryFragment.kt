@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
@@ -37,6 +38,7 @@ class ChooseTriviaCategoryFragment : Fragment(), TriviaCategoryAdapter.OnItemCli
 
     override fun onItemClicked(category: TriviaCategory) {
         chooseCategoryViewModel.onCategoryChosen(category)
+        findNavController().navigate(R.id.action_chooseDifficulty)
     }
 
     companion object {

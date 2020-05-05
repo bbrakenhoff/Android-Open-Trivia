@@ -26,9 +26,9 @@ class ChooseTriviaCategoryViewModel(private val categoryRepository: TriviaCatego
     }
 
     fun refreshCategories() {
-        viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.refreshCategories()
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            categoryRepository.refreshCategories()
+//        }
     }
 
     fun onCategoryChosen(category: TriviaCategory) {

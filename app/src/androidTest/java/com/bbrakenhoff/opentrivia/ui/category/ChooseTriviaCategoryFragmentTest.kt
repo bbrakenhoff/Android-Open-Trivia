@@ -1,24 +1,26 @@
 package com.bbrakenhoff.opentrivia.ui.category
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MediatorLiveData
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.Navigation.setViewNavController
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.bbrakenhoff.opentrivia.KoinTestRule
 import com.bbrakenhoff.opentrivia.R
 import com.bbrakenhoff.opentrivia.ViewActions.withItemCount
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
+import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.hamcrest.Matcher
-import org.hamcrest.Matchers.equalTo
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -35,6 +37,9 @@ class ChooseTriviaCategoryFragmentTest {
         viewModel(override = true) { chooseCategoryViewModelMock }
     })
 
+    private lateinit var fragmentScenario: FragmentScenario<ChooseTriviaCategoryFragment>
+    private lateinit var navController: TestNavHostController
+
     private lateinit var categoriesMock: MediatorLiveData<List<TriviaCategory>>
     private lateinit var chooseCategoryViewModelMock: ChooseTriviaCategoryViewModel
 
@@ -50,7 +55,14 @@ class ChooseTriviaCategoryFragmentTest {
             }
         }
 
-        launchFragmentInContainer<ChooseTriviaCategoryFragment>()
+        fragmentScenario = launchFragmentInContainer<ChooseTriviaCategoryFragment>()
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        navController = TestNavHostController(context)
+        navController.setGraph(R.navigation.nav_graph)
+
+        fragmentScenario.onFragment {
+            setViewNavController(it.requireView(), navController)
+        }
     }
 
     @Test
@@ -61,13 +73,17 @@ class ChooseTriviaCategoryFragmentTest {
 
     @Test
     fun callsViewModelWhenItemClicked() {
-        verify { chooseCategoryViewModelMock.refreshCategories() }
-
-
         onView(withId(R.id.categoriesRecyclerView))
             .perform(actionOnItemAtPosition<TriviaCategoryAdapter.TriviaCategoryViewHolder>(0, click()))
 
         verify { chooseCategoryViewModelMock.onCategoryChosen(TestCategories[0]) }
+    }
+
+    @Test
+    fun navigatesToChooseQuestionDifficultyFragmentWhenItemClicked() {
+        onView(withId(R.id.categoriesRecyclerView))
+            .perform(actionOnItemAtPosition<TriviaCategoryAdapter.TriviaCategoryViewHolder>(0, click()))
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.chooseQuestionDifficultyFragment)
     }
 
     companion object {
