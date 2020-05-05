@@ -80,10 +80,10 @@ class ChooseTriviaCategoryFragmentTest {
     }
 
     @Test
-    fun navigatesToChooseQuestionDifficultyFragmentWhenItemClicked() {
+    fun navigatesToChooseDifficultyFragmentWhenItemClicked() {
         onView(withId(R.id.categoriesRecyclerView))
             .perform(actionOnItemAtPosition<TriviaCategoryAdapter.TriviaCategoryViewHolder>(0, click()))
-        assertThat(navController.currentDestination?.id).isEqualTo(R.id.chooseQuestionDifficultyFragment)
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.chooseDifficultyFragment)
     }
 
     companion object {

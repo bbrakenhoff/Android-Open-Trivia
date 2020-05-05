@@ -5,7 +5,7 @@ import com.bbrakenhoff.opentrivia.api.NetworkModule
 import com.bbrakenhoff.opentrivia.database.DatabaseModule
 import com.bbrakenhoff.opentrivia.repository.RepositoryModule
 import com.bbrakenhoff.opentrivia.ui.category.ChooseTriviaCategoryModule
-import com.bbrakenhoff.opentrivia.ui.difficulty.ChooseTriviaQuestionDifficultyModule
+import com.bbrakenhoff.opentrivia.ui.difficulty.ChooseTriviaDifficultyModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -26,7 +26,7 @@ class TriviaApp : Application() {
                     DatabaseModule.start(),
                     RepositoryModule.start(),
                     ChooseTriviaCategoryModule.start(),
-                    ChooseTriviaQuestionDifficultyModule.start()
+                    ChooseTriviaDifficultyModule.start()
                 )
             )
         }

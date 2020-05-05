@@ -5,9 +5,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-object ChooseTriviaQuestionDifficultyModule : KoinModule {
+object ChooseTriviaDifficultyModule : KoinModule {
     override fun start(): Module = module {
 
-        viewModel { ChooseTriviaQuestionDifficultyViewModel() }
+        viewModel { ChooseTriviaDifficultyViewModel() }
     }
 }

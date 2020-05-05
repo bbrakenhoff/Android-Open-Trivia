@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_choose_category">
         <action
             android:id="@+id/action_chooseDifficulty"
-            app:destination="@+id/chooseQuestionDifficultyFragment" />
+            app:destination="@+id/chooseDifficultyFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/chooseQuestionDifficultyFragment"
-        android:name="com.bbrakenhoff.opentrivia.ui.difficulty.ChooseTriviaQuestionDifficultyFragment"
+        android:id="@+id/chooseDifficultyFragment"
+        android:name="com.bbrakenhoff.opentrivia.ui.difficulty.ChooseTriviaDifficultyFragment"
         android:label="Choose question difficulty"
-        tools:layout="@layout/fragment_choose_question_difficulty" />
+        tools:layout="@layout/fragment_choose_difficulty" />
 
 </navigation>
