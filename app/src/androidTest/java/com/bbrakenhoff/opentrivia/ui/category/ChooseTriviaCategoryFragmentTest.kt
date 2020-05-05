@@ -12,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.assertThat
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.bbrakenhoff.opentrivia.KoinTestRule
 import com.bbrakenhoff.opentrivia.R
+import com.bbrakenhoff.opentrivia.ViewActions.withItemCount
 import com.bbrakenhoff.opentrivia.model.TriviaCategory
 import io.mockk.every
 import io.mockk.mockk
@@ -67,16 +68,6 @@ class ChooseTriviaCategoryFragmentTest {
             .perform(actionOnItemAtPosition<TriviaCategoryAdapter.TriviaCategoryViewHolder>(0, click()))
 
         verify { chooseCategoryViewModelMock.onCategoryChosen(TestCategories[0]) }
-    }
-
-    private fun withItemCount(matcher: Matcher<Int>) = ViewAssertion { view, noViewFoundException ->
-        if (noViewFoundException != null) {
-            throw noViewFoundException
-        }
-
-        val recyclerView = view as RecyclerView
-        val adapter = recyclerView.adapter
-        assertThat(adapter?.itemCount, matcher)
     }
 
     companion object {
